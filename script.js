@@ -1,5 +1,6 @@
 const header = document.querySelector(".site-header");
 const langButtons = document.querySelectorAll(".lang-button");
+const blinkEyes = document.querySelectorAll(".blink-eye");
 
 const setHeaderState = () => {
   if (!header) return;
@@ -25,3 +26,15 @@ langButtons.forEach((button) => {
 });
 
 window.addEventListener("scroll", setHeaderState, { passive: true });
+
+if (blinkEyes.length && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+  const blink = () => {
+    blinkEyes.forEach((eye) => eye.classList.add("is-blinking"));
+    window.setTimeout(() => blinkEyes.forEach((eye) => eye.classList.remove("is-blinking")), 130);
+    window.setTimeout(() => blinkEyes.forEach((eye) => eye.classList.add("is-blinking")), 260);
+    window.setTimeout(() => blinkEyes.forEach((eye) => eye.classList.remove("is-blinking")), 390);
+  };
+
+  window.setTimeout(blink, 900);
+  window.setInterval(blink, 4800);
+}
